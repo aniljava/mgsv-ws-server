@@ -11,7 +11,7 @@ Biologists working with set of annotation data can use client tool that uses thi
 
 
 ### Technical Overview
-Web Service is implemented using default web service toolkit that comes with standard Java Development Kit (JDK). Actual interfacing to mGSV is done using Apache HTTP Components that converts the incoming
+Web Service is implemented using default web service toolkit that comes with standard Java Development Kit (JDK 1.6+). Actual interfacing to mGSV is done using Apache HTTP Components that converts the incoming
 requests to a HTTP POST call as expected by mGSV. Two functions are published.
 
 - uploadURL(String syntenyUrl, String annotationUrl, String email):String
@@ -22,16 +22,27 @@ Both the web service functions accepts the synteny data as string or url to publ
 in later time to access the synteny visualization.
 
 ### Installation
+#### Requirements
+
+##### To Run a binary
+- JDK 1.6+
+- Linux/Win/OSX
+
+##### To build from Source
+- JDK 1.6+
+- Maven <http://maven.apache.org/>
+- Git <http://git-scm.com/>
+
 
 #### Binary
 
 - Download pre-built jar file <https://github.com/downloads/aniljava/mgsv-ws-server/ws-server-1.0RC1-jar-with-dependencies.jar>
 - create config.properties on the same directory as that of ws-server-1.0RC1-jar-with-dependencies.jar , see configuration guide below
-- run as *java -jar ws-server-1.0RC1-jar-with-dependencies.jar*
+- run as **java -jar ws-server-1.0RC1-jar-with-dependencies.jar**
 
 
 #### Source
-
+Maven is required to install from source. <http://maven.apache.org/>
     git clone https://github.com/aniljava/mgsv-ws-server.git
     cd mgsv-ws-server
     mvn package
