@@ -9,13 +9,6 @@ which can be used to access the visualizations. Primary users of Web Services ar
 
 Biologists working with set of annotation data can use client tool that uses this Web Service to upload multiple files and urls.
 
-	 * @throws Exception
-	 */
-	public String uploadURL(String synteny, String annotation, String email) throws Exception {
-		if (synteny == null)
-			return null;
-
-
 ### Technical Overview
 Web Service is implemented using default web service toolkit that comes with standard Java Development Kit (JDK 1.6+). Actual interfacing to mGSV is done using Apache HTTP Components that converts the incoming
 requests to a HTTP POST call as expected by mGSV. Two functions are published.
