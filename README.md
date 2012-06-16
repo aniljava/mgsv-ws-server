@@ -4,14 +4,22 @@ mgsv-ws-server
 Web Service Server Implementation for mGSV
 
 ### Overview
-Provides a programmatic access to mGSV server. Synteny and Annotation files can be uploaded to mGSV server as block of string or url pointing to the synteny files.
+A consistent and programmatic access to mGSV is provided using SOAP Web Service. Web service accepts SOAP requests for data upload from files and urls of the synteny data and returns an unique id for the upload
+which can be used to access the visualizations. Primary users of Web Services are application developers who need to extend existing bioinformatics tools to include the synteny visualization.
 
-### Services offered
+Biologists working with set of annotation data can use client tool that uses this Web Service to upload multiple files and urls.
+
+
+### Technical Overview
+Web Service is implemented using default web service toolkit that comes with standard Java Development Kit (JDK). Actual interfacing to mGSV is done using Apache HTTP Components that converts the incoming
+requests to a HTTP POST call as expected by mGSV. Two functions are published.
 
 - uploadURL(String syntenyUrl, String annotationUrl, String email):String
-- uploadData(String synteny, String annotation, String email):String
+- uploadData(String syntenyData, String annotationData, String email):String
 
-url can point to any publicly accessible plain text file, gzipped or zipped files.
+
+Both the web service functions accepts the synteny data as string or url to publicly accessible files. Upon a successful upload a string representing the id of the upload is returned. The returned id can be used
+in later time to access the synteny visualization.
 
 ### Installation
 
