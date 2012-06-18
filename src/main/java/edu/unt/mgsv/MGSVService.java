@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Properties;
-import java.util.zip.GZIPOutputStream;
 
 import javax.jws.WebService;
 import javax.xml.ws.Endpoint;
@@ -107,6 +107,12 @@ public class MGSVService {
 		if (email != null) {
 			multipart.addPart("email", new StringBody(email));
 		}
+		
+		multipart.addPart("syn_url", new StringBody(""));
+		multipart.addPart("ann_url", new StringBody(""));
+		multipart.addPart("syn_default", new StringBody(""));
+		
+		
 
 		FormBodyPart part = new FormBodyPart("pro", new StringBody("Submit"));
 
@@ -130,8 +136,10 @@ public class MGSVService {
 	}
 
 	private File toFile(String data) throws Exception {
-		File file = File.createTempFile("mgsv", ".gz");
-		GZIPOutputStream out = new GZIPOutputStream(new FileOutputStream(file));
+		//File file = File.createTempFile("mgsv", ".gz");
+		File file = File.createTempFile("mgsv", ".txt");
+		//GZIPOutputStream out = new GZIPOutputStream(new FileOutputStream(file));
+		OutputStream out = new FileOutputStream(file);
 		out.write(data.getBytes("UTF-8"));
 		out.close();
 		return file;
@@ -143,8 +151,11 @@ public class MGSVService {
 		 * Gzip. Returns the temp file. Caller is responsible for its deletion
 		 * if required.
 		 */
-		File file = File.createTempFile("mgsv", ".gz");
-		GZIPOutputStream out = new GZIPOutputStream(new FileOutputStream(file));
+		//File file = File.createTempFile("mgsv", ".gz");
+		File file = File.createTempFile("mgsv", ".txt");
+		
+		//GZIPOutputStream out = new GZIPOutputStream(new FileOutputStream(file));		
+		OutputStream out = new FileOutputStream(file);
 		URLConnection connection = new URL(url).openConnection();
 
 		InputStream in = connection.getInputStream();
@@ -173,7 +184,12 @@ public class MGSVService {
 
 	public static void main(String[] args) throws Exception {
 		MGSVService service = new MGSVService();
+		
+		
 		service.execute();
+		System.out.println("WHAT");
+		String str = service.makeRequest(new File("s"), new File("a"), "test@test.com");
+		System.out.println(str);
 	}
 
 }
