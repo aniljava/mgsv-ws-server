@@ -128,7 +128,9 @@ public class MGSVService {
 
 		String locationHeader = response.getHeaders("Location")[0].getValue();
 		if (locationHeader != null) {
-			locationHeader = locationHeader.replaceAll("\\Qsummary.php?session_id=\\E", "");
+			locationHeader = locationHeader.replaceAll("\\Qsummary.php?session_id=\\E", ""); //MGSV
+			locationHeader = locationHeader.replaceAll("\\Qdisplay.php?session_id=\\E", ""); //GSV
+			locationHeader = locationHeader.replaceAll("\\Q&annid=1\\E", ""); //GSV
 		}
 		EntityUtils.consume(responseEntity);
 
@@ -187,9 +189,11 @@ public class MGSVService {
 		
 		
 		service.execute();
-		System.out.println("WHAT");
-		String str = service.makeRequest(new File("s"), new File("a"), "test@test.com");
+		/**
+		System.out.println("Testing ..");
+		String str = service.makeRequest(new File("s.txt"), new File("a.txt"), "test@test.com");
 		System.out.println(str);
+		**/
 	}
 
 }
