@@ -1,17 +1,11 @@
 package edu.unt.mgsv;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Properties;
-
 import javax.jws.WebService;
 import javax.xml.ws.Endpoint;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -129,6 +123,8 @@ public class MGSVService {
 		String locationHeader = response.getHeaders("Location")[0].getValue();
 		if (locationHeader != null) {
 			locationHeader = locationHeader.replaceAll("\\Qsummary.php?session_id=\\E", ""); //MGSV
+                        
+                        //These two are for the GSV.
 			locationHeader = locationHeader.replaceAll("\\Qdisplay.php?session_id=\\E", ""); //GSV
 			locationHeader = locationHeader.replaceAll("\\Q&annid=1\\E", ""); //GSV
 		}
@@ -181,19 +177,14 @@ public class MGSVService {
 		 */
 		config.load(new FileInputStream("config.properties"));
 		Endpoint.publish(config.getProperty("ws_publish_url"), this);
-		System.out.println("Published at : " + config.getProperty("ws_publish_url"));
+		
+                System.out.println("Endpoint: " +  config.getProperty("ws_publish_url"));
+                System.out.println("WDL     : " +  config.getProperty("ws_publish_url") + "?wsdl");                
 	}
 
 	public static void main(String[] args) throws Exception {
 		MGSVService service = new MGSVService();
-		
-		
 		service.execute();
-		/**
-		System.out.println("Testing ..");
-		String str = service.makeRequest(new File("s.txt"), new File("a.txt"), "test@test.com");
-		System.out.println(str);
-		**/
 	}
 
 }
