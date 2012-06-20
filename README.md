@@ -12,7 +12,7 @@ Web Service exports two methods
 
 WSDL can be obtained from :
 
-    http://cas-bioinfo.cas.unt.edu:8081/MGSVService
+    http://cas-bioinfo.cas.unt.edu:8081/MGSVService?wsdl
 
 ## Dependencies
 - JDK 1.6+
@@ -35,4 +35,4 @@ Download or produce binary using mvn package. Inside the directory where you hav
 
 2. Client config.properties
 
-        remote=http\://97.94.192.248\:8082/GSVService?wsdl
+        remote=http\://97.94.192.248\:8082/GSVService
