@@ -35,4 +35,4 @@ Download or produce binary using mvn package. Inside the directory where you hav
 
 2. Client config.properties
 
-        remote=http\://97.94.192.248\:8082/GSVService
+        remote=http\://97.94.192.248\:8082/GSVService?wsdl
