@@ -1,61 +1,38 @@
-mgsv-ws-server
+mgsv-ws-server - 1.0
 ==============
 
-Web Service Server Implementation for mGSV
+SOAP Web Service for [mGSV](http://cas-bioinfo.cas.unt.edu/mgsv/index.php) and [GSV](http://cas-bioinfo.cas.unt.edu/gsv/homepage.php). It is standalone
+java application, that can be run alongside mGSV/GSV or in seperate machine. Allows clients to upload files and urls programmatically. A client reference
+implementation can be found at [mgsv-ws-client](https://github.com/aniljava/mgsv-ws-client).
 
-### Overview
-A consistent and programmatic access to mGSV is provided using SOAP Web Service. Web service accepts SOAP requests for data upload from files and urls of the synteny data and returns an unique id for the upload
-which can be used to access the visualizations. Primary users of Web Services are application developers who need to extend existing bioinformatics tools to include the synteny visualization.
+Web Service exports two methods
 
-Biologists working with set of annotation data can use client tool that uses this Web Service to upload multiple files and urls.
+     uploadURL(String syntenyUrl, String annotationUrl, String email):String
+     uploadData(String syntenyData, String annotationData, String email):String
 
-### Technical Overview
-Web Service is implemented using default web service toolkit that comes with standard Java Development Kit (JDK 1.6+). Actual interfacing to mGSV is done using Apache HTTP Components that converts the incoming
-requests to a HTTP POST call as expected by mGSV. Two functions are published.
+WSDL can be obtained from :
 
-- uploadURL(String syntenyUrl, String annotationUrl, String email):String
-- uploadData(String syntenyData, String annotationData, String email):String
+    http://cas-bioinfo.cas.unt.edu:8081/MGSVService
 
-
-Both the web service functions accepts the synteny data as string or url to publicly accessible files. Upon a successful upload a string representing the id of the upload is returned. The returned id can be used
-in later time to access the synteny visualization.
-
-### Installation
-#### Requirements
-
-##### To Run a binary
+## Dependencies
 - JDK 1.6+
-- Linux/Win/OSX
+- Maven 3.0+ (Source Build)
 
-##### To build from Source
-- JDK 1.6+
-- Maven <http://maven.apache.org/>
-- Git <http://git-scm.com/>
+## Running
+Download or produce binary using mvn package. Inside the directory where you have binary jar ()
 
-
-#### Binary
-
-- Download pre-built jar file <https://github.com/downloads/aniljava/mgsv-ws-server/ws-server-1.0RC1-jar-with-dependencies.jar>
-- create config.properties on the same directory as that of ws-server-1.0RC1-jar-with-dependencies.jar , see configuration guide below
-- run as **java -jar ws-server-1.0RC1-jar-with-dependencies.jar**
+    shell> echo "mgsv_upload_url=http://<YOUR_SERVER_DOMAIN_NAME>/mgsv" > config.properties
+    shell> echo "ws_publish_url=http\://<YOUR_SERVER_DOMAIN_NAME>\:8081/MGSVService" >> config.properties
+    shell> java -jar ws-server-1.0RC1-jar-with-dependencies.jar
 
 
-#### Source
-Maven is required to install from source. <http://maven.apache.org/>
-    git clone https://github.com/aniljava/mgsv-ws-server.git
-    cd mgsv-ws-server
-    mvn package
-    cp target/ws-server-1.0RC1-jar-with-dependencies.jar ./
-    java -jar ws-server-1.0RC1-jar-with-dependencies.jar
-    
+## Running for GSV
 
-### Configuration
-Example config.properties
+1. Server config.properties
 
-	#Configuration File for mGSV-WS-SERVER
-	#Fri Jun 15 03:34:34 CDT 2012
-	#Address of actual mGSV server
-	mgsv_upload_url=http\://bioinfo.cas.unt.edu/mgsv.anil/
-	#Interface to use, ip address, domain name or 0.0.0.0 for all interface
-	ws_publish_url=http\://0.0.0.0\:8081/MGSVService
-	mgsv_summary_url=http\://bioinfo.cas.unt.edu/mgsv.anil/summary.php?session_id\=
+        mgsv_upload_url=http\://cas-bioinfo.cas.unt.edu/gsv/homepage.php
+        ws_publish_url=http\://97.94.192.248\:8082/GSVService
+
+2. Client config.properties
+
+        remote=http\://97.94.192.248\:8082/GSVService
